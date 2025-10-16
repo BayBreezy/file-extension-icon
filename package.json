@@ -1,6 +1,6 @@
 {
   "name": "@baybreezy/file-extension-icon",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Modern, lightweight package for folder and file extension specific Material icons and VSCode icons",
   "keywords": [
     "icon",
