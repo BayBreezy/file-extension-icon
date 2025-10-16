@@ -1,0 +1,108 @@
+name: 🚀 Automated Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: 'Release type (patch/minor/major)'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+        default: 'patch'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    name: Release & Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Important: fetch all history for changelogen
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run Type Check
+        run: npm run typecheck
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test -- --run
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Generate Changelog & Bump Version
+        run: |
+          npx changelogen --release --${{ inputs.release-type }} --no-commit --no-tag
+          
+      - name: Get New Version
+        id: version
+        run: echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Commit Changes
+        run: |
+          git add package.json CHANGELOG.md
+          git commit -m "chore(release): v${{ steps.version.outputs.new_version }}"
+          
+      - name: Create Tag
+        run: git tag v${{ steps.version.outputs.new_version }}
+
+      - name: Push Changes
+        run: |
+          git push origin main
+          git push origin v${{ steps.version.outputs.new_version }}
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Read Changelog
+        id: changelog
+        run: |
+          # Extract the latest release notes from CHANGELOG.md
+          CONTENT=$(awk '/^## v${{ steps.version.outputs.new_version }}/{flag=1;next}/^## v/{flag=0}flag' CHANGELOG.md)
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.new_version }}
+          name: Release v${{ steps.version.outputs.new_version }}
+          body: ${{ steps.changelog.outputs.content }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🎉 Success Notification
+        run: |
+          echo "✅ Successfully released v${{ steps.version.outputs.new_version }}"
+          echo "📦 Published to npm: https://www.npmjs.com/package/@baybreezy/file-extension-icon"
+          echo "🏷️ GitHub Release: https://github.com/${{ github.repository }}/releases/tag/v${{ steps.version.outputs.new_version }}"

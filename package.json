@@ -1,0 +1,92 @@
+{
+  "name": "@baybreezy/file-extension-icon",
+  "version": "0.0.1",
+  "description": "Modern, lightweight package for folder and file extension specific Material icons and VSCode icons",
+  "keywords": [
+    "icon",
+    "material",
+    "vscode",
+    "file-extension",
+    "folder",
+    "typescript",
+    "esm"
+  ],
+  "homepage": "https://github.com/BayBreezy/file-extension-icon",
+  "bugs": {
+    "url": "https://github.com/BayBreezy/file-extension-icon/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BayBreezy/file-extension-icon"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Behon Baker",
+    "email": "behon.baker@yahoo.com",
+    "url": "https://behonbaker.com"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js",
+      "require": "./dist/src/index.cjs"
+    }
+  },
+  "main": "./dist/src/index.cjs",
+  "module": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "bin": {
+    "file-icon": "./dist/cli/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "clean": "rm -rf dist coverage node_modules package-lock.json && ni && nr build",
+    "dev": "tsdown --watch",
+    "knip": "knip",
+    "lint": "eslint src",
+    "prepare": "husky",
+    "prepublishOnly": "npm run build",
+    "release": "changelogen --release && npm run build && npm publish",
+    "release:patch": "changelogen --release --patch",
+    "release:minor": "changelogen --release --minor",
+    "release:major": "changelogen --release --major",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui",
+    "typecheck": "tsc --noEmit"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --fix",
+    "*": "prettier --write ."
+  },
+  "devDependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@eslint/js": "^9.37.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
+    "@types/node": "^24.7.2",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "changelogen": "^0.6.2",
+    "clipboardy": "^5.0.0",
+    "commander": "^14.0.1",
+    "eslint": "^9.37.0",
+    "globals": "^16.4.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.1",
+    "knip": "^5.65.0",
+    "lint-staged": "^16.2.4",
+    "picocolors": "^1.1.1",
+    "prettier": "^3.6.2",
+    "tsdown": "^0.15.7",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.1",
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "npm@10.8.2"
+}

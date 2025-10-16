@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/BayBreezy/file-extension-icon/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 📚 Documentation
+    url: https://github.com/BayBreezy/file-extension-icon#readme
+    about: Read the documentation for usage guides and examples
+  - name: 🔍 Existing Issues
+    url: https://github.com/BayBreezy/file-extension-icon/issues
+    about: Search for existing issues before creating a new one

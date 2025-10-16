@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Extension Icon Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+          sans-serif;
+        padding: 2rem;
+        background: #1e1e1e;
+        color: #d4d4d4;
+      }
+
+      h1 {
+        margin-bottom: 2rem;
+        color: #fff;
+      }
+
+      .section {
+        margin-bottom: 3rem;
+      }
+
+      .section h2 {
+        margin-bottom: 1rem;
+        color: #4fc3f7;
+      }
+
+      .icon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+      }
+
+      .icon-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: #252526;
+        border-radius: 8px;
+        transition:
+          transform 0.2s,
+          background 0.2s;
+      }
+
+      .icon-item:hover {
+        transform: translateY(-2px);
+        background: #2d2d30;
+      }
+
+      .icon-item img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .icon-item span {
+        font-size: 0.875rem;
+        color: #cccccc;
+        text-align: center;
+        word-break: break-all;
+      }
+
+      .toggle {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .toggle button {
+        padding: 0.5rem 1rem;
+        background: #0e639c;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        font-size: 0.875rem;
+        transition: background 0.2s;
+      }
+
+      .toggle button:hover {
+        background: #1177bb;
+      }
+
+      .toggle button.active {
+        background: #1177bb;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎨 File Extension Icon Demo</h1>
+
+    <div class="section">
+      <h2>Material File Icons</h2>
+      <div id="material-files" class="icon-grid"></div>
+    </div>
+
+    <div class="section">
+      <h2>Material Folder Icons</h2>
+      <div class="toggle">
+        <button class="active" onclick="toggleFolderState('material', false)">Closed</button>
+        <button onclick="toggleFolderState('material', true)">Open</button>
+      </div>
+      <div id="material-folders" class="icon-grid"></div>
+    </div>
+
+    <div class="section">
+      <h2>VSCode File Icons</h2>
+      <div id="vsi-files" class="icon-grid"></div>
+    </div>
+
+    <div class="section">
+      <h2>VSCode Folder Icons</h2>
+      <div class="toggle">
+        <button class="active" onclick="toggleFolderState('vsi', false)">Closed</button>
+        <button onclick="toggleFolderState('vsi', true)">Open</button>
+      </div>
+      <div id="vsi-folders" class="icon-grid"></div>
+    </div>
+
+    <script type="module">
+      import {
+        getMaterialFileIcon,
+        getMaterialFolderIcon,
+        getVSIFileIcon,
+        getVSIFolderIcon,
+      } from "../dist/src/index.js";
+
+      // Sample files to display
+      const files = [
+        "index.js",
+        "app.ts",
+        "style.css",
+        "package.json",
+        "README.md",
+        "Dockerfile",
+        "index.html",
+        "app.py",
+        "main.go",
+        "script.sh",
+        "config.yaml",
+        "test.spec.ts",
+        "component.vue",
+        "page.jsx",
+        "database.sql",
+        "image.svg",
+        "style.scss",
+        "data.xml",
+      ];
+
+      // Sample folders to display
+      const folders = [
+        "src",
+        "components",
+        "dist",
+        "node_modules",
+        "assets",
+        "api",
+        "utils",
+        "config",
+        "tests",
+        "public",
+        "scripts",
+        "docs",
+        "lib",
+        "build",
+        "android",
+      ];
+
+      // Render file icons
+      function renderFileIcons(containerId, getIconFn, files) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = files
+          .map(
+            (file) => `
+        <div class="icon-item">
+          <img src="${getIconFn(file)}" alt="${file}">
+          <span>${file}</span>
+        </div>
+      `
+          )
+          .join("");
+      }
+
+      // Render folder icons
+      function renderFolderIcons(containerId, getIconFn, folders, open = false) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = folders
+          .map(
+            (folder) => `
+        <div class="icon-item">
+          <img src="${getIconFn(folder, open)}" alt="${folder}">
+          <span>${folder}/</span>
+        </div>
+      `
+          )
+          .join("");
+      }
+
+      // Initial render
+      renderFileIcons("material-files", getMaterialFileIcon, files);
+      renderFileIcons("vsi-files", getVSIFileIcon, files);
+      renderFolderIcons("material-folders", getMaterialFolderIcon, folders, false);
+      renderFolderIcons("vsi-folders", getVSIFolderIcon, folders, false);
+
+      // Toggle folder state
+      window.toggleFolderState = function (theme, open) {
+        const containerId = `${theme}-folders`;
+        const getIconFn = theme === "material" ? getMaterialFolderIcon : getVSIFolderIcon;
+        renderFolderIcons(containerId, getIconFn, folders, open);
+
+        // Update button states
+        const section = document.getElementById(containerId).closest(".section");
+        const buttons = section.querySelectorAll(".toggle button");
+        buttons.forEach((btn, idx) => {
+          btn.classList.toggle("active", (idx === 0 && !open) || (idx === 1 && open));
+        });
+      };
+    </script>
+  </body>
+</html>
