@@ -67,7 +67,7 @@ import { getMaterialFileIcon } from "@baybreezy/file-extension-icon";
 
 function FileIcon({ fileName }: { fileName: string }) {
   const icon = getMaterialFileIcon(fileName);
-  
+
   return <img src={icon} alt={fileName} width={24} height={24} />;
 }
 ```
@@ -76,10 +76,10 @@ function FileIcon({ fileName }: { fileName: string }) {
 
 ```html
 <script type="module">
-  import { getMaterialFileIcon } from '@baybreezy/file-extension-icon';
-  
-  const icon = getMaterialFileIcon('index.html');
-  document.getElementById('icon').src = icon;
+  import { getMaterialFileIcon } from "@baybreezy/file-extension-icon";
+
+  const icon = getMaterialFileIcon("index.html");
+  document.getElementById("icon").src = icon;
 </script>
 
 <img id="icon" alt="html" width="24" height="24" />
@@ -88,19 +88,19 @@ function FileIcon({ fileName }: { fileName: string }) {
 ### Advanced Usage
 
 ```ts
-import { 
-  getMaterialFileIcon,
-  getIconFromMap,
-  findIconInCollection,
+import {
+  convertToBase64,
   createDataUri,
-  convertToBase64
+  findIconInCollection,
+  getIconFromMap,
+  getMaterialFileIcon,
 } from "@baybreezy/file-extension-icon";
 
 // The package intelligently matches file names
-getMaterialFileIcon("app.component.ts");  // Matches Angular component
-getMaterialFileIcon("test.spec.ts");      // Matches test file
-getMaterialFileIcon("package.json");      // Matches package.json
-getMaterialFileIcon("Dockerfile");        // Matches Docker
+getMaterialFileIcon("app.component.ts"); // Matches Angular component
+getMaterialFileIcon("test.spec.ts"); // Matches test file
+getMaterialFileIcon("package.json"); // Matches package.json
+getMaterialFileIcon("Dockerfile"); // Matches Docker
 
 // Works with any file extension
 getMaterialFileIcon("script.py");
@@ -117,11 +117,13 @@ getMaterialFileIcon("README.md");
 Returns a base64-encoded SVG data URI for the given file name using the Material Icon theme.
 
 **Parameters:**
+
 - `fileName` (string): The file name with or without path (e.g., `"index.js"`, `"src/app.ts"`)
 
 **Returns:** Base64-encoded data URI string
 
 **Example:**
+
 ```typescript
 const icon = getMaterialFileIcon("index.js");
 // => "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0..."
@@ -132,12 +134,14 @@ const icon = getMaterialFileIcon("index.js");
 Returns a base64-encoded SVG data URI for the given folder name using the Material Icon theme.
 
 **Parameters:**
+
 - `folderName` (string): The folder name
 - `open` (boolean, optional): Whether to return the open folder icon. Default: `false`
 
 **Returns:** Base64-encoded data URI string
 
 **Example:**
+
 ```typescript
 const closedIcon = getMaterialFolderIcon("components");
 const openIcon = getMaterialFolderIcon("components", true);
@@ -150,6 +154,7 @@ const openIcon = getMaterialFolderIcon("components", true);
 Returns a base64-encoded SVG data URI for the given file name using the VSCode Icon theme.
 
 **Parameters:**
+
 - `fileName` (string): The file name with or without path
 
 **Returns:** Base64-encoded data URI string
@@ -159,6 +164,7 @@ Returns a base64-encoded SVG data URI for the given file name using the VSCode I
 Returns a base64-encoded SVG data URI for the given folder name using the VSCode Icon theme.
 
 **Parameters:**
+
 - `folderName` (string): The folder name
 - `open` (boolean, optional): Whether to return the open folder icon. Default: `false`
 
@@ -169,11 +175,11 @@ Returns a base64-encoded SVG data URI for the given folder name using the VSCode
 The package also exports utility functions for advanced use cases:
 
 ```typescript
-import { 
-  getIconFromMap,
-  findIconInCollection,
+import {
+  convertToBase64,
   createDataUri,
-  convertToBase64
+  findIconInCollection,
+  getIconFromMap,
 } from "@baybreezy/file-extension-icon";
 ```
 
@@ -211,12 +217,12 @@ This package contains comprehensive icon data for both Material and VSCode icon 
 ### Optimization Tips
 
 1. **Import only what you need:**
+
    ```typescript
    // ✅ Good - Tree-shakeable
-   import { getMaterialFileIcon } from '@baybreezy/file-extension-icon';
-   
+   import { getMaterialFileIcon } from "@baybreezy/file-extension-icon";
    // ❌ Avoid - Imports everything
-   import * as Icons from '@baybreezy/file-extension-icon';
+   import * as Icons from "@baybreezy/file-extension-icon";
    ```
 
 2. **Use modern bundlers** with tree-shaking support (Vite, Rollup, esbuild, webpack 5+)
@@ -276,15 +282,18 @@ MIT © [Behon Baker](https://behonbaker.com)
 This package is a complete TypeScript rewrite of [`file-extension-icon-js`](https://github.com/minhazmiraz/file-extension-icon-JS) by [MD. Minhazul Islam](https://github.com/minhazmiraz).
 
 ### Original Package
+
 - **Original Author**: [MD. Minhazul Islam](https://github.com/minhazmiraz)
 - **Original Package**: [file-extension-icon-js](https://github.com/minhazmiraz/file-extension-icon-JS)
 - **License**: MIT
 
 ### Icon Sources
+
 - [Material Icon Theme](https://github.com/PKief/vscode-material-icon-theme) by Philipp Kief
 - [VSCode Icons](https://github.com/vscode-icons/vscode-icons) by VSCode Icons Team
 
 ### Inspiration
+
 - [vscode-icons-js](https://github.com/dderevjanik/vscode-icons-js) by Dominik Dereǰanik
 - [file-icons-js](https://github.com/websemantics/file-icons-js) by Web Semantics
 

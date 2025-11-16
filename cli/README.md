@@ -23,6 +23,7 @@ npx @baybreezy/file-extension-icon
 ```
 
 The CLI will guide you through:
+
 1. **Theme selection**: Choose between Material or VSCode icons
 2. **Type selection**: File or folder icons
 3. **Icon selection**: Search by name or browse available icons
