@@ -50,7 +50,7 @@
     "lint": "eslint src",
     "prepare": "husky",
     "prepublishOnly": "npm run build",
-    "release": "changelogen --release && npm run build && npm publish",
+    "release": "changelogen --release --push && npm run build && npm publish",
     "release:patch": "changelogen --release --patch",
     "release:minor": "changelogen --release --minor",
     "release:major": "changelogen --release --major",
