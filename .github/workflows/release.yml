@@ -35,10 +35,27 @@ jobs:
       - name: Build package
         run: npm run build
 
+      - name: Check if version is already published
+        id: check_version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          if npm view @baybreezy/file-extension-icon@$VERSION version 2>/dev/null; then
+            echo "already_published=true" >> $GITHUB_OUTPUT
+            echo "⚠️ Version $VERSION is already published to npm"
+          else
+            echo "already_published=false" >> $GITHUB_OUTPUT
+            echo "✅ Version $VERSION is not yet published"
+          fi
+
       - name: Publish to npm
+        if: steps.check_version.outputs.already_published == 'false'
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Skip publishing
+        if: steps.check_version.outputs.already_published == 'true'
+        run: echo "⏭️ Skipping npm publish - version already exists"
 
       - name: Extract release notes
         id: extract_notes
