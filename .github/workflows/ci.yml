@@ -122,12 +122,12 @@ jobs:
       - name: Check build output
         run: |
           ls -la dist/
-          test -f dist/src/index.js || exit 1
           test -f dist/src/index.cjs || exit 1
-          test -f dist/src/index.d.ts || exit 1
-          test -f dist/cli/index.js || exit 1
+          test -f dist/src/index.d.mts || exit 1
+          test -f dist/src/index.mjs || exit 1
           test -f dist/cli/index.cjs || exit 1
-          test -f dist/cli/index.d.ts || exit 1
+          test -f dist/cli/index.d.mts || exit 1
+          test -f dist/cli/index.mjs || exit 1
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
