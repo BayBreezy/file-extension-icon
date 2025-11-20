@@ -70,8 +70,8 @@
     "@eslint/js": "^9.39.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@types/node": "^24.10.1",
-    "@vitest/coverage-v8": "^4.0.9",
-    "@vitest/ui": "^4.0.9",
+    "@vitest/coverage-v8": "^4.0.10",
+    "@vitest/ui": "^4.0.10",
     "changelogen": "^0.6.2",
     "clipboardy": "^5.0.0",
     "commander": "^14.0.2",
@@ -79,14 +79,14 @@
     "globals": "^16.5.0",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
-    "knip": "^5.69.1",
-    "lint-staged": "^16.2.6",
+    "knip": "^5.70.1",
+    "lint-staged": "^16.2.7",
     "picocolors": "^1.1.1",
     "prettier": "^3.6.2",
-    "tsdown": "^0.16.4",
+    "tsdown": "^0.16.5",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.4",
-    "vitest": "^4.0.9"
+    "typescript-eslint": "^8.47.0",
+    "vitest": "^4.0.10"
   },
   "packageManager": "npm@10.8.2"
 }
