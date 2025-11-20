@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.0.4
+
+[compare changes](https://github.com/BayBreezy/file-extension-icon/compare/v0.0.3...v0.0.4)
+
+### 🩹 Fixes
+
+- Handle already published versions in release workflow ([048bbeb](https://github.com/BayBreezy/file-extension-icon/commit/048bbeb))
+- Update package.json for module compatibility with .mjs and .d.mts extensions ([21d0242](https://github.com/BayBreezy/file-extension-icon/commit/21d0242))
+
+### 🏡 Chore
+
+- Update dependencies to latest versions ([a7fd797](https://github.com/BayBreezy/file-extension-icon/commit/a7fd797))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.0.3
 
 [compare changes](https://github.com/BayBreezy/file-extension-icon/compare/v0.0.2...v0.0.3)
