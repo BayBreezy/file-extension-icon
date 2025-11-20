@@ -28,16 +28,16 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
-      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.mts",
+      "import": "./dist/src/index.mjs",
       "require": "./dist/src/index.cjs"
     }
   },
   "main": "./dist/src/index.cjs",
-  "module": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "module": "./dist/src/index.mjs",
+  "types": "./dist/src/index.d.mts",
   "bin": {
-    "file-icon": "./dist/cli/index.js"
+    "file-icon": "./dist/cli/index.cjs"
   },
   "files": [
     "dist"
@@ -88,5 +88,5 @@
     "typescript-eslint": "^8.47.0",
     "vitest": "^4.0.10"
   },
-  "packageManager": "npm@10.8.2"
+  "packageManager": "npm@11.6.3"
 }
